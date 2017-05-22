@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)http://html5-demos.appspot.com/static/navigator.onLine.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>navigator.onLine test</title>
+</head>
+<body>
+
+
+
+<script type="text/javascript" async="" src="./navigator.onLine test_files/ga.js"></script><script>
+
+  function updateConnectionClass() {   
+      var root = document.documentElement,   
+          types = "unknown ethernet wifi 2g 3g 4g none".split(" ");   
+      for (var i = 0, n = types.length; i < n; i++) {   
+          root.classList.remove("network-" + types[i]);   
+      }   
+      root.classList.add("network-" + navigator.connection.type);   
+  }   
+
+  window.onload = window.ononline = window.onoffline = updateConnectionClass; 
+  
+  
+  document.write(window.navigator.connection)
+
+</script>
+
+
+  </body>
+</html>

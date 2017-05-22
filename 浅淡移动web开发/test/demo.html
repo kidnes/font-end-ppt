@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta content="telephone=no" name="format-detection">
+  <title>使用localstorage选择性缓存图片 - DEMO</title>
+  <style>
+  body{ background-repeat:no-repeat;}
+  a:hover, a.hover {color: #008000;}
+  </style>
+  <script type="text/javascript" src="http://mat1.gtimg.com/dyaio/js/r_dy/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+
+
+
+<!--以下是访问量统计代码，与本页面内容无关-->
+<div style="visibility:hidden;">
+	
+</div>
+
+<!--//访问量统计代码结束-->
+</body>
+  <script>
+  //判断屏幕是否旋转
+    function orientationChange() {
+	    switch(window.orientation) {
+	    　　case 0:
+	            alert("肖像模式 0,screen-width: " + screen.width + "; screen-height:" + screen.height);
+	            break;
+	    　　case -90:
+	            alert("左旋 -90,screen-width: " + screen.width + "; screen-height:" + screen.height);
+	            break;
+	    　　case 90:
+	            alert("右旋 90,screen-width: " + screen.width + "; screen-height:" + screen.height);
+	            break;
+	    　　case 180:
+	        　　alert("风景模式 180,screen-width: " + screen.width + "; screen-height:" + screen.height);
+	        　　break;
+	    };
+	};
+
+	//添加事件监听
+	addEventListener('load', function(){
+	    orientationChange();
+	    window.onorientationchange = orientationChange;
+	});
+
+
+	// 双手指滑动事件
+	addEventListener('load',function(){
+		window.onmousewheel = twoFingerScroll;
+	},
+	    false// 兼容各浏览器，表示在冒泡阶段调用事件处理程序 (true 捕获阶段)
+	);
+
+	function twoFingerScroll(ev) {
+	    var delta = ev.wheelDelta/120;//对 delta 值进行判断(比如正负) ，而后执行相应操作
+
+	    console.log(delta)
+	    return true;
+	};
+
+  </script>
+</html>

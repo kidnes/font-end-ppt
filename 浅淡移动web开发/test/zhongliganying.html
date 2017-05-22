@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta content="telephone=no" name="format-detection">
+  <title>使用localstorage选择性缓存图片 - DEMO</title>
+  <style>
+  body{ background-repeat:no-repeat;}
+  a:hover, a.hover {color: #008000;}
+  </style>
+  <script type="text/javascript" src="http://mat1.gtimg.com/dyaio/js/r_dy/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+
+
+
+<style type="text/css">
+.loadPage{background:#1359c3;z-index: 9999;width: 100%;position: absolute;top: 0;bottom: 0;display:none; }
+.loading{position:absolute;width:80%;left:10%;top:10%;margin:20px auto;text-align:center;}
+.loading:after{content:"";background:url(http://mat1.gtimg.com/2014/djt/baotu/bntBg.png) 0 0 no-repeat; background-size:198px 75px;width:198px;height:75px;display:inline-block;position:absolute;top:50px;left:0}
+.loading .inner{background-color:#CCC;border-radius:5px;overflow:hidden;background-color:#FFF;position:relative; z-index:10}
+.loading-progress{width:0;height:40px;text-align:center;background-color:#FFE628;color:#FFF;}
+.loading-num{height:50px;font:40px/50px Tahoma;color:#FFE628;}
+.loading-txt{font:14px/30px Arial;color:#337eee;padding-top:20px;}
+</style>
+<div class="loadPage" style="display:block;z-index:99999">
+    <div class="loading">
+        <div class="loading-num"></div>
+        <div class="inner">
+            <div class="loading-progress"></div>
+        </div>
+        <div class="loading-txt">建议在WIFI环境下观看</div>
+    </div>
+</div>
+<script type="text/javascript" src="http://mat1.gtimg.com/www/mobi/js/zepto.min.js"></script>
+<script type="text/javascript">
+/**
+ * loadImg  图片预加载
+ * @param   {Array}     预加载图片的对象数组
+ * author   jianminlu 
+ * update   2014-12-2 fix by icedzhang
+ */
+
+
+var pics = [
+    "http://mat1.gtimg.com/2014/djt/bye/fengmian_bg2.jpg",
+    "http://img1.gtimg.com/2014/pics/hv1/36/121/1629/105956616.jpg",
+    "http://img1.gtimg.com/2014/pics/hv1/138/75/1629/105944988.jpg",
+    "http://img1.gtimg.com/2014/pics/hv1/47/70/1629/105943622.jpg",
+    "http://mat1.gtimg.com/2014/djt/bye/fcBg.png",
+    "http://mat1.gtimg.com/2014/djt/bye/timeBg.png"
+];
+
+_loadImages(pics, function(){
+    alert('加载完成！')
+});
+
+function _loadImages(pics, callback, len){
+    len = len || pics.length;
+    if(pics.length){
+        var IMG = new Image(),
+            picelem = pics.shift();
+
+        if(window._pandaImageLoadArray){
+            window._pandaImageLoadArray = window._pandaImageLoadArray
+        }else{
+            window._pandaImageLoadArray = [];
+        }
+        window._pandaImageLoadArray.push(picelem);
+
+        IMG.src = picelem;
+
+        // 从数组中取出对象的一刻，就开始变化滚动条
+        _drawLoadProgress(window._pandaImageLoadArray.length/(len*len));
+
+        // 缓存处理
+        if (IMG.complete) {
+            window._pandaImageLoadArray.shift();
+            return _loadImages(pics,callback, len); 
+        }else{
+            // 加载处理
+            IMG.onload = function() {
+                window._pandaImageLoadArray.shift();
+                IMG.onload = null;  // 解决内存泄漏和GIF图多次触发onload的问题
+            }
+
+            // 容错处理 todo 应该如何处理呢?
+            // 目前是忽略这个错误，不影响正常使用
+            IMG.onerror = function(){
+                window._pandaImageLoadArray.shift();
+                IMG.onerror = null;
+            }
+
+            return _loadImages(pics, callback, len);
+        }
+
+        return;
+    }
+    
+    if(callback) _loadProgress(callback, window._pandaImageLoadArray.length, len);
+}
+
+// 监听实际的加载情况
+function _loadProgress(callback, begin, all){
+    var loadinterval = setInterval(function(){
+        if(window._pandaImageLoadArray.length != 0 && window._pandaImageLoadArray.length != begin){
+            _drawLoadProgress((begin - window._pandaImageLoadArray.length )/all);
+        }else if(window._pandaImageLoadArray.length == 0){
+            _drawLoadProgress(1)
+            setTimeout(function(){
+                callback.call(window);
+            },500);
+            clearInterval(loadinterval);
+        }
+    },300);
+}
+
+function _drawLoadProgress(w){
+    var num = Math.floor(w*100) >= 100 ? 100 : Math.floor(w*100);
+    $('.loading-progress').animate({width:$('.loading').width()*num/100}, 100, 'linear');
+    $(".loading-num").html(num+"%");
+}
+</script>
+</html>

@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta content="telephone=no" name="format-detection">
+  <title>使用localstorage选择性缓存图片 - DEMO</title>
+  <style>
+  body{ background-repeat:no-repeat;}
+  a:hover, a.hover {color: #008000;}
+  </style>
+  <script type="text/javascript" src="http://mat1.gtimg.com/dyaio/js/r_dy/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+
+
+
+<!--以下是访问量统计代码，与本页面内容无关-->
+<div style="visibility:hidden;">
+	
+</div>
+<a href="#">今天我要嫁给你了</a>
+<a href="#">好吗</a>
+<a href="#">好的</a>
+<!--//访问量统计代码结束-->
+</body>
+  <script>
+  //不管数据多大，我们需要等待数据从磁盘读取和解析，这会减慢我们的应用程序的响应速度。这在移动设备上是特别糟糕的，主线程被挂起，直到数据被取出，会使你的应用程序看起来慢，甚至没有反应
+    var config = {
+	    fullName: 'asbscsad',
+	    userId: 232323
+	};
+	  
+	// 保存起来，供下次使用
+	localStorage.setItem('config', JSON.stringify(config));
+	  
+	// 从离线存储中读取出来
+	var config = JSON.parse(localStorage.getItem('config'));
+	
+	var myLinks = document.getElementsByTagName('a');
+	
+	for(var i = 0; i < myLinks.length; i++){
+	　　myLinks[i].addEventListener('touchstart', function(){this.className = "hover";}, false);
+	　　myLinks[i].addEventListener('touchend', function(){this.className = "";}, false);
+	}
+	
+  </script>
+</html>

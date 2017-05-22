@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>HTML5 &amp; CSS 新特性在小米网的应用 by Sivan Sun</title>
+<meta name="description" content="随着 H5 的定稿与 CSS 的发展，越来越多的网站加入更加友好、炫丽的交互效果。本节将分享一些在小米网的发展过程中经历的新技术实践，以及在未来的发展中应用新特性可能性。">
+<meta name="author" content="Sivan Sun">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="css/reveal.min.css">
+<link rel="stylesheet" href="css/style.min.css">
+<link rel="stylesheet" href="css/zenburn.css">
+<link rel="shortcut icon" href="http://www.mi.com/favicon.ico" type="image/x-icon">
+<link rel="icon" href="http://www.mi.com/favicon.ico" type="image/x-icon">
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<span class="logo ir">小米网</span>
+<div class="reveal">
+    <div class="slides">
+        <section class="aloha">
+            <h1 class="title">HTML5 &amp; CSS 新特性</h1>
+            <h2 class="subtitle">在小米网的应用</h2>
+            <p>by Sivan Sun</p>
+        </section>
+
+        <section>
+            <section data-transition="none">
+                <h2>小米网前端的主要工作</h2>
+                <p>http://www.mi.com/</p>
+            </section>
+            <section data-transition="none">
+                <img src="images/before.png" height="auto" width="800" height="660" alt="开抢啦">
+            </section>
+            <section data-transition="none">
+                <img src="images/before.jpg" height="auto" width="800" height="645" alt="排队中">
+            </section>
+            <section data-transition="none">
+                <img src="images/after.png" height="auto" width="800" height="660" alt="已售罄">
+            </section>
+            <section data-transition="none">
+                <h3 class="fragment">在别人眼中——</h3>
+                <blockquote>
+                    <p>「没错，这就是小米网前端的全部工作~ :P」</p>
+                </blockquote>
+                <img src="images/gif/belieber.gif" height="240" width="320" alt="">
+            </section>
+            <section>
+                <h3>我们还在做些什么？</h3>
+                <ul>
+                    <li class="fragment">小米网电商站（大陆站、海外站）</li>
+                    <li class="fragment">明星商品产品站</li>
+                    <li class="fragment">小米社区</li>
+                    <li class="fragment">各种活动页（米粉节、频繁的促销）</li>
+                </ul>
+            </section>
+            <section>
+                <h3>我们面临的问题：</h3>
+                <ul>
+                    <li class="fragment">项目多、开发周期短；</li>
+                    <li class="fragment">交互变化多，难以规范化；</li>
+                    <li class="fragment">要给用户提供新鲜感。</li>
+                </ul>
+            </section>
+            <section>
+                <h4>产品汪经常对我们说：</h4>
+                <blockquote>
+                    <p>「所有元素要动起来，显得活泼、大气~」</p>
+                </blockquote>
+                <p class="fragment">（但是往往不会告诉你具体应该怎么动……）</p>
+                <img class="fragment" src="images/gif/confusion.gif" width="514" height="329" alt="rotate">
+            </section>
+            <section>
+                <h4>射鸡湿经常对我们说：</h4>
+                <div class="fragment">
+                    <blockquote>
+                        <p>「&#x2764; 总之，我希望页面效果是 <span style="background: -webkit-gradient(linear, 0% 0%, 100% 100%, from(#fff000), to(#ff00ff));color: transparent;-webkit-background-clip: text; font-style: normal;">bling</span>  <span style="background: -webkit-gradient(linear, 0% 100%, 100% 0%, from(#ff0000), to(#00ff00)); color: transparent; -webkit-background-clip: text; font-style: normal;">bling</span> 的~ &#x2764;」</p>
+                    </blockquote>
+                    <img class="fragment" src="images/gif/magic-confetti.gif" width="429" height="350" alt="bling">
+                </div>
+            </section>
+            <section>
+                <h4>领导说……</h4>
+                <img class="fragment" src="images/canyugan.jpg" width="256" height="341" alt="">
+            </section>
+            <section>
+                <div class="box-medium">
+                    <pre><code class="javascript" data-trim>
+User.addEventListener('参与', function() {
+    console.log('客官别走，让我陪你玩耍陪你飞！');
+});</code></pre>
+                </div>
+            </section>
+            <section>
+                <h3 class="title">HTML5 &amp; CSS<del style="color: #aaa;">3</del></h3>
+                <img src="images/gif/thankyounotes.gif" height="258" width="286" alt="">
+            </section>
+            <section>
+                <h3>开发要点</h3>
+                <ol>
+                    <li>动态；</li>
+                    <li>好玩；</li>
+                    <li>美观。</li>
+                </ol>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>动画效果实践与优化</h2>
+                <div class="fragment">
+                    <p>如何让页面看起来「你好活泼！」又不「你抽风啊？」</p>
+                    <img src="images/gif/wrong.gif" width="460" height="282" alt="wrong">
+                </div>
+            </section>
+            <section>
+                <h3>60FPS &amp; 1000/60</h3>
+                <img src="images/gif/run.gif" height="250" width="465" alt="run">
+            </section>
+            <section>
+                <h3>目前主流的动画实现方式</h3>
+                <div class="ta-l">
+                    <ul>
+                        <li>jQuery Animate（setInterval）：易用，低效，兼容好；</li>
+                        <li>CSS Transition：硬件加速、移动端兼容，高效；</li>
+                        <li>requestAnimationFrame：易用，充分发挥浏览器性能。</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h3>影响动画效果的因素</h3>
+                <div class="ta-l">
+                    <p>浏览器的渲染方式：Layout -&gt; Paint -&gt; Composite</p>
+                    <ul>
+                        <li>频繁重绘，改变颜色、背景图等；</li>
+                        <li>频繁触发 Layout 导致回流，改变位置影响文档流。</li>
+                    </ul>
+                    <p>Link: <a href="http://csstriggers.com/">csstriggers.com</a></p>
+                </div>
+            </section>
+            <section>
+                <h3>jQuery <code>$.animate()</code></h3>
+                <div class="fragment">
+                    <p>想起来很美，用起来很丑。</p>
+                    <img src="images/gif/baby.gif" height="203" width="265" alt="baby">
+                </div>
+            </section>
+            <section>
+                <h4>为什么不用 <code>$.animate()</code></h4>
+                <p>jQuery 无法解决频繁触发 Layout 导致的抽动。</p>
+                <pre><code class="javascript" data-trim>
+var h1 = element1.clientHeight; // Read
+element1.style.height = (h1 * 2) + 'px'; // Write (invalidates layout)
+
+var h2 = element2.clientHeight; // Read (triggers layout)
+element2.style.height = (h2 * 2) + 'px'; // Write (invalidates layout)
+
+var h3 = element3.clientHeight; // Read (triggers layout)
+element3.style.height = (h3 * 2) + 'px'; // Write (invalidates layout)</code></pre>
+            </section>
+            <section>
+                <p>在 JavaScript 中解决</p>
+                <pre><code class="javascript" data-trim>
+// Read
+var h1 = element1.clientHeight;
+var h2 = element2.clientHeight;
+var h3 = element3.clientHeight;
+
+// Write (invalidates layout)
+element1.style.height = (h1 * 2) + 'px';
+element2.style.height = (h2 * 2) + 'px';
+element3.style.height = (h3 * 2) + 'px';</code></pre>
+            </section>
+            <section>
+                <img src="images/layout-thrashing.jpg" width="468" height="600" alt="">
+            </section>
+            <section>
+                <h4>为什么不用 <code>$.animate()</code></h4>
+                <div class="ta-l">
+                    <p><code>$.animate()</code> 方法基于 setInterval，易导致堆积回调，最终导致跳帧。</p>
+                </div>
+                <pre><code class="javascript" data-trim>
+// from jQuery 1.11-stable
+
+jQuery.fx.interval = 13;
+
+jQuery.fx.start = function() {
+    if ( !timerId ) {
+        timerId = setInterval( jQuery.fx.tick, jQuery.fx.interval );
+    }
+};</code></pre>
+            </section>
+            <section>
+                <h3>CSS Transition/Animation</h3>
+                <p>画龙点睛的动画效果</p>
+            </section>
+            <section>
+                <h4>易用</h4>
+                <p>一行代码，两个属性。</p>
+                <pre><code class="css" data-trim>
+/* CSS transition */
+.xm-transition {
+    transition: opacity 2s, transform 1s;
+}
+
+/* CSS animation */
+.xm-animation {
+    animation: mitu 2s;
+}
+</code></pre>
+            </section>
+            <section>
+                <h4>排队米兔的诞生</h4>
+                <div class="mitu"></div>
+                <div class="mitu-animate"></div>
+            </section>
+            <section>
+                <h4>动画曲线</h4>
+                <div class="fragment">
+                    <img src="images/easeInOutBack.jpg" width="157" height="122" alt="">
+                    <img src="images/easeInOutBounce.jpg" width="153" height="122" alt="">
+                </div>
+                <div class="fragment">
+                    <p>贝塞尔曲线[<a href="http://cubic-bezier.com/#.2,-1,.5,2">Demo</a>]</p>
+                    <p>Link: <a href="http://easings.net/zh-cn">http://easings.net/zh-cn</a></p>
+                </div>
+            </section>
+            <section>
+                <h4>性能</h4>
+                <p>硬件加速：一种特性，而非功能。</p>
+                <div class="fragment">
+                    <pre><code class="css" data-trim>
+/* 创建 GPU 层，这是一种 hacker! */
+.xm-3d-layer {
+    transform: translate3d(0, 10px, 0);
+}</code></pre>
+                </div>
+            </section>
+            <section>
+                <h4>既然硬件加速这么牛X，为什么不这样？</h4>
+                <pre><code class="css" data-trim>
+*, *:before, *:after {
+    transform: translate3d(0, 0, 0);
+}</code></pre>
+                <div class="fragment">
+                    <ul>
+                        <li>不是所有的 CSS 属性都能获得 GPU 加速；</li>
+                        <li>GPU 传输的开销，WebKit 需要手动触发</li>
+                        <li>Firefox/IE 为所有动画都采取硬件加速</li>
+                        <li><code>will-change</code> 属性</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h4>CSS 动画的注意事项</h4>
+                <ul>
+                    <li><code>::before</code> &amp; <code>::after</code></li>
+                    <li>CSS transition对 translate/scale/rotate 缺乏独立的控制；</li>
+                    <li>CSS animation 的动画曲线会应用到所有变化属性上；</li>
+                    <li>手写稍微复杂点的 keyframes 像噩梦；</li>
+                    <li>API：<code>$elm.on('transitionend', function() {});</code><br /><code>$elm.on('animationstart', function() {});</code></li>
+                </ul>
+            </section>
+            <section>
+                <h4>CSS Transition/Animation 演示</h4>
+                <ul>
+                    <li>Link: <a href="http://www.mi.com/dianyuan10400/">www.mi.com/dianyuan10400/</a></li>
+                    <li>Link: <a href="http://daneden.github.io/animate.css/">Animate.css</a></li>
+                    <li>Link: <a href="https://github.com/elrumordelaluz/csshake">cssshake</a></li>
+                </ul>
+            </section>
+            <section>
+                <h3>JavaScript Animation</h3>
+                <p>aka requestAnimationFrame, rAF</p>
+            </section>
+            <section>
+                <h4>jQuery 动画 != JS 动画</h4>
+                <p>按时间变化 -&gt; 按每帧变化</p>
+            </section>
+            <section>
+                <h4>同样的事情，不同的处理</h4>
+                <pre><code class="javascript" data-trim>
+// Read
+var h1 = element1.clientHeight;
+
+// Write
+requestAnimationFrame(function() {
+  element1.style.height = (h1 * 2) + 'px';
+});
+
+// Read
+var h2 = element2.clientHeight;
+
+// Write
+requestAnimationFrame(function() {
+  element2.style.height = (h2 * 2) + 'px';
+});</code></pre>
+            </section>
+            <section>
+                <h4>rAF 动画的优势</h4>
+                <ul>
+                    <li>相比 CSS 动画有更好的掌控；</li>
+                    <li>也有硬件加速喔~</li>
+                    <li>合理降低 CPU 使用；</li>
+                    <li>自动降帧；</li>
+                    <li>老式浏览器降级至 setInterval 或 setTimeout。</li>
+                </ul>
+                <p>Link: <a href="http://i.huodong.mi.com/padshow/default/show?name=Sivan&school=%E8%93%9D%E7%BF%94">十一出行晒装备</a></p>
+            </section>
+            <section data-transition="none">
+                <img src="images/js-ftw-1.jpg" width="711" height="400" alt="">
+            </section>
+            <section data-transition="none">
+                <img src="images/js-ftw-2.jpg" width="711" height="400" alt="">
+            </section>
+            <section>
+                <h4>setInterval vs. requestAnimationFrame</h4>
+                <p>为什么 jQuery 用 setInterval 而不用 rAF？</p>
+            </section>
+            <section>
+                <h4>成熟的方案</h4>
+                <ul>
+                    <li>velocity.js：轻巧高效，与 $.animate() API 相同；</li>
+                    <li>GreenSock：高效全能。</li>
+                </ul>
+            </section>
+            <section>
+                <h3>特点比较</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>jQuery</th>
+                            <th>CSS Transitions</th>
+                            <th>JavaScript Animation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>性能</th>
+                            <td><span class="b">Bad</span></td>
+                            <td><span class="g">Good</span></td>
+                            <td><span class="g">Good</span></td>
+                        </tr>
+                        <tr>
+                            <th>效果</th>
+                            <td><span class="m">Not bad</span></td>
+                            <td><span class="m">Not bad</span></td>
+                            <td><span class="g">Good</span></td>
+                        </tr>
+                        <tr>
+                            <th>功能</th>
+                            <td><span class="g">Good</span></td>
+                            <td><span class="m">Not bad</span></td>
+                            <td><span class="g">Good</span></td>
+                        </tr>
+                        <tr>
+                            <th>兼容</th>
+                            <td><span class="g">Good</span></td>
+                            <td><span class="b">Bad</span> <small>IE10+</small></td>
+                            <td><span class="g">Good</span> <small>IE10+</small></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>避免使用</td>
+                            <td>简单交互</td>
+                            <td>复杂交互</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section>
+                <h3>一切脱离产品需求的技术选择都是耍流氓</h3>
+                <ul class="fragment">
+                    <li>页面增强动画 -&gt; CSS</li>
+                    <li>复杂动画交互 -&gt; rAF</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>好玩的交互</h2>
+            </section>
+            <section>
+                <h3>&lt;canvas&gt;</h3>
+                <div class="ta-l">
+                    <ul>
+                        <li>Link: <a href="http://hd.mi.com/webfile/zt/hd/2014071601/index.html">小米活塞耳机 炫彩版 慧眼识色</a></li>
+                        <li>Link: <a href="http://hd.mi.com/webfile/zt/hd/2014121901/index.html">小米网圣诞季</a> / <a href="http://www.mi.com/mitv/2014shengdan/">小米电视圣诞礼</a></li>
+                        <li class="fragment">兼容受限</li>
+                        <li class="fragment">性能问题</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h3>&lt;audio&gt; / &lt;video&gt;</h3>
+                <div class="ta-l">
+                    <ul>
+                        <li>Link: <a href="http://www.mi.com/air/">小米空气净化器</a></li>
+                        <li class="fragment">视频倒放处理</li>
+                        <li class="fragment">Safari 的颜色管理问题</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h3>APNG</h3>
+                <p class="fragment">这货根本不是 HTML5 啊喂！</p>
+                <div class="animated-canvas animated-canvas-zoom" data-apng-src="images/apng.png">
+                    <img src="images/mitu-1.png" width="324" height="378" alt="" />
+                </div>
+            </section>
+            <section>
+                <h4>APNG 的兼容性</h4>
+                <ul>
+                    <li><a href="http://caniuse.com/#search=apng">Firefox、Safari 8</a> 原生支持；</li>
+                    <li>通过 &lt;canvas&gt; 实现 <a href="http://caniuse.com/#search=canvas">IE9+</a> 兼容</li>
+                    <li>Link: <a href="https://github.com/davidmz/apng-canvas">apng-canvas.js</a></li>
+                    <li>Link: <a href="https://github.com/apngasm/apngasm">apngasm</a></li>
+                </ul>
+            </section>
+            <section>
+                <h4>gif vs. apng vs. png sprite</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>gif</th>
+                            <th>apng</th>
+                            <th>png sprite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>颜色</th>
+                            <td><span class="b">256</span></td>
+                            <td><span class="g">24位</span></td>
+                            <td><span class="g">24位</span></td>
+                        </tr>
+                        <tr>
+                            <th>透明度</th>
+                            <td><span class="b">索引透明，有毛边</span></td>
+                            <td><span class="g">Alpha 透明</span></td>
+                            <td><span class="g">Alpha 透明</span></td>
+                        </tr>
+                        <tr>
+                            <th>尺寸</th>
+                            <td><span class="m">中</span></td>
+                            <td><span class="g">小</span></td>
+                            <td><span class="b">大</span></td>
+                        </tr>
+                        <tr>
+                            <th>兼容</th>
+                            <td><span class="g">Good</span></td>
+                            <td><span class="m">IE9+</span></td>
+                            <td><span class="g">IE7+</span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>底色固定</td>
+                            <td>可降级</td>
+                            <td>兼容</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>好看的细节</h2>
+            </section>
+            <section>
+                <h3>视网膜化</h3>
+                <p>目前可能是国内仅有的几家适配 retina 屏的网站。</p>
+                <ul>
+                    <li>&lt;img&gt;：<code>srcset</code></li>
+                    <li>CSS background：<code>-webkit-image-set</code></li>
+                </ul>
+            </section>
+            <section>
+                <h4>视网膜化过程中遇到的问题</h4>
+                <ul>
+                    <li>采用 <code>-webkit-image-set</code> 影响 background transition</li>
+                    <li>如何做出大尺寸、小体积的图片？<span class="fragment">降低画质，图片优化</span></li>
+                </ul>
+            </section>
+            <section>
+                <h3>icon font</h3>
+                <ul>
+                    <li>跨平台；</li>
+                    <li>体积小，减少 http 请求；</li>
+                    <li>完美适配 retina 屏；</li>
+                    <li>矢量，可任意修改颜色和大小；</li>
+                    <li>易于维护。</li>
+                </ul>
+            </section>
+            <section>
+                <img src="images/iconfont.png" width="800" height="440" alt="">
+            </section>
+            <section>
+                <h4>使用方法</h4>
+                <pre><code class="css" data-trim>
+@font-face {font-family: 'iconfont';
+    src: url('iconfont.eot'); /* IE9*/
+    src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('iconfont.woff') format('woff'), /* chrome、firefox */
+         url('iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+         url('iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}</code></pre>
+            </section>
+            <section>
+                <h4>Firefox 的问题</h4>
+                <ul class="gragment">
+                    <li>同域处理</li>
+                    <li>服务器改配置</li>
+                    <li>base64 <span class="fragment">✓</span></li>
+                </ul>
+            </section>
+            <section>
+                <h3>中文 web font</h3>
+            </section>
+            <section>
+                <img src="images/retina.jpg" width="980" height="625" alt="">
+            </section>
+            <section>
+                <h4>为什么要用中文 web font？</h4>
+                <div class="ta-l">
+                    <ul>
+                        <li>设计师对产品站美观程度的要求；</li>
+                        <li>去图片化，减少 http 请求；</li>
+                        <li>比图片更好维护，无需设计师介入。</li>
+                        <li class="fragment">可能是国内首先采用中文 web font 的网站？</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h4>开发过程</h4>
+                <div class="ta-l">
+                    <ul>
+                        <li>中文字体文件大？<span class="fragment">只生成用到的文字。</span></li>
+                        <li>版权？<span class="fragment">买买买。</span></li>
+                        <li>字体如何生成？<span class="fragment">对接字体提供商给出的转换接口。</span></li>
+                    </ul>
+                    <p>Link: <a href="http://www.mi.com/mi4/">www.mi.com/mi4/</a></p>
+                </div>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>造轮子</h2>
+                <img src="images/gif/awkwalk.gif" height="301" width="441" alt="">
+            </section>
+            <section>
+                <h3>在没有合适解决方案的时候再造轮子</h3>
+                <ul>
+                    <li>modal.js</li>
+                    <li>slides.js</li>
+                    <li>lazyload</li>
+                    <li>...</li>
+                </ul>
+            </section>
+            <section>
+                <h3>不为了造轮子而造轮子</h3>
+                <img src="images/gif/execution-is-everything.gif" height="332" width="441" alt="">
+                <ul>
+                    <li>shadow DOM</li>
+                    <li>Link: <a href="http://i.huodong.mi.com/tvzan/default/setCity">i.huodong.mi.com/tvzan/default/setCity</a></li>
+                </ul>
+            </section>
+        </section>
+
+        <section class="fin">
+            <h2 class="title">&lt;thank-you&gt;</h2>
+            <div class="box-small group">
+                <img class="avatar" src="images/avatar.jpg" width="64" height="64" alt="avatar">
+                <a href="http://weibo.com/sivan">@Sivan</a>
+            </div>
+            <img class="thumb" src="images/gif/dribbble_feeling_01.gif" alt="">
+        </section>
+    </div>
+</div>
+
+<script src="js/libs/jquery.min.js"></script>
+<script src="lib/js/head.min.js"></script>
+<script src="js/libs/reveal.min.js"></script>
+<script>
+    Reveal.initialize({
+        history: true,
+        width: 1240,
+        transition: 'linear',
+        theme: 'default',
+        dependencies: [
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+<script src="lib/js/apng.min.js"></script>
+<script src="js/script.min.js"></script>
+</body>
+</html>

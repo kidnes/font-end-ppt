@@ -1,0 +1,853 @@
+
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="Description" content="" />
+    <meta name="Keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="format-detection" content="telephone=no"/>
+    <title>为城市快乐点赞-城市拉力赛-TGA移动游戏</title>
+    <!-- 设计：tuntundeng| 重构：weberli | 创建：2014/04/25 | 更新：| 团队博客：http://tgideas.qq.com/ -->
+</head>
+<script>
+    var d0 = new Date();
+</script>
+<style>
+    *{margin:0;padding:0;}
+    a,button,input,select{-webkit-tap-highlight-color:rgba(255,0,0,0);outline:none;}
+    @font-face {font-family: 'icon';src: url('font/icon.woff') format('woff'), url('font/icon.ttf')  format('truetype');}
+    [class^="icon-"]:before, [class*=" icon-"]:before {
+        font-family: "icon";
+        font-style: normal;
+        font-weight: normal;
+        display: inline-block;
+        text-decoration: inherit;
+        text-align: center;
+        font-variant: normal;
+        text-transform: none;
+        margin-right: .4em;
+        margin-left: .4em;
+
+    }
+    .icon-thumbs-up{font-size: 28px;padding: 0 10px 0  50px;line-height: 26px;}
+    .icon-thumbs-up-1:before { content: '\e800';}
+    .icon-thumbs-up-alt:before { content: '\e802'; }
+    .icon-location{width: 20px;height:40px;display: block;font-size: 18px;}
+    .icon-location:before { content: '\e803';  color: #27C5A2; }
+    .icon-volume-off:before { content: '\e806'; font-size: 14px;}
+    .icon-volume-low:before { content: '\e807'; }
+    .icon-videocam:before { content: '\e805'; }
+    .icon-gift:before { content: '\e801'; }
+    .icon-signal:before { content: '\e804'; }
+    .icon-cancel:before { content: '\e808'; }
+    img{border:0;}
+    .fl{float:left;}
+    .fr{float:right;}
+    .box_orient {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+    ol,ul{list-style:none;}
+    body{background: url("http://ossweb-img.qq.com/images/sy/tga/2014/city/rp.jpg");font-size: 12px;}
+    h1{display: none;}
+    .comWidth{width: 320px;margin: 0 auto;}
+    .arrow-right {display: inline-block; width:0px;height:0px;border-bottom:5px solid transparent;  border-top:5px solid transparent; border-left:5px solid #F9F6FF; font-size:0px;line-height:0px;}
+    .arrow-down {display: inline-block; width:0px;height:0px;border-left:5px solid transparent;  border-right:5px solid transparent; border-top:5px solid #F9F6FF; font-size:0px;line-height:0px;}
+    .wraper{background: url("http://ossweb-img.qq.com/images/sy/tga/2014/city/bodyBg.jpg") top center no-repeat;background-size: 500px 320px; }
+    .header{background: url("http://ossweb-img.qq.com/images/sy/tga/2014/city/headerBg.jpg");background-size:320px 320px;height: 320px; }
+    .mfoot{text-align: center;line-height: 20px;color: #979B9E;margin: 10px 0 10px 0;}
+    .tabWrap{border-radius: 5px;background:#FCFCFC;margin: 10px auto; width:300px;overflow: hidden;}
+    .tab1{height: 60px;eoverflow: hidden;border-bottom: 1px solid #EBECEF;}
+    .tab1 li a{display: block;width:110px;height:47px; float: left;text-decoration: none;line-height: 67px;color: #27C5A2;font-weight: bold; font-size: 18px; padding-left: 120px;}    .tab1 li .on{}
+    .slideLine{width:150px;height:0;overflow:hidden;border-bottom: 2px solid #05DDAD;-webkit-transition:all 0.3s ease-in;}
+    .mainWrap{width: 600px;-webkit-backface-visibility: hidden;-webkit-transition:all 0.3s ease-in;overflow: hidden; }
+    .paiming{width: 300px;}
+    .paiming table{width: 100%;}
+    .paiming table tr{border-bottom: 1px solid #E5E5E5;height: 44px;display: block;line-height: 40px; width: 100%;}
+    .paiming table td{font-size: 15px; text-align: center;}
+    .vedios{width: 300px;overflow: hidden;}
+    .vedios li{height:70px;overflow: hidden;padding:10px;  }
+    .vedios a{text-decoration: none; color: #959595;}
+    .vedioTitle{font-size: 14px;font-weight: bold;margin: 5px 0 10px 0;}
+    .vedios img{display: block;margin-right: 10px;}
+    .wait{text-align: center;}
+    .enterVedioCenter{display: block;color:#676767;width: 100%;text-align: center;font-size: 14px;height: 60px;line-height:60px;border-top: 1px solid #EDEDED;}
+    .w1{width:35px; }.w2{width:55px;}.w3{width: 135px;}.w4{width: 50px;cursor: pointer }
+    .more{width: 100%;line-height: 40px;text-align: center;color: #676767;font-size: 14px;}
+    .gifts{width: 300px;height: 380px;border-radius: 5px;background:#FCFCFC;overflow: hidden;margin: 10px auto;overflow: hidden; }
+    .giftTitle{color: #6CD8C0;font-size: 18px;text-align: center;width: 100%;height: 40px;line-height: 40px;border-bottom: 1px solid #BFD4D2;}
+    .giftList{margin: 10px 0 0 5px;}
+    .giftList ul li{float: left;margin:15px 9px 0  0;}
+    .topNav{height:140px;}
+    .backBtn{width:100px;height: 40px;display: block;text-indent: -9999px;}
+    .closeSoud{width: 30px;height: 30px;color: #fff;margin: 2px 10px 0 0;line-height: 30px;}
+    .rule{width: 90px;height: 20px;text-decoration: none;color: #F9F6FF; margin:10px 0px 0 0;}
+    .voteWrap {height: 50px;margin: 30px 0 0 15px;position: relative;}
+    .selected{width:120px;height:50px;background: #014E76;color: #FFF;text-indent: 40px;line-height: 50px;float: left;font-size: 14px;}
+    .selectUL{width: 240px;min-height:200px;margin-top:20px;}
+    .selectUL li{width: 60px;height: 40px;float: left;line-height: 25px;text-align: center;color: #3E465E;}
+
+    .zhan{width: 175px;height: 40px;background:#00FFB4; overflow: hidden;padding-top: 10px;font-size: 18px;color: #27C5A2;cursor: pointer}
+    .z1{display: none;line-height: 32px;}
+    .location{margin: 10px 0 0 20px;color: #F3EEFF;}
+    .zhanWrap{margin-top: 10px;}
+    .voteBtnWrap{width: 285px;height: 40px;border-radius: 5px;background: #FFE900;text-align: center;line-height: 40px;color: #129C84;font-size: 18px;}
+    .login{width: 285px;margin: 50px auto;color: #fff;font-size: 14px;font-size: 12px;}
+    .login a{color: #fff;text-decoration: none;line-height: 22px;}
+    .location_01{height: 48px;color: #fff;line-height: 20px;width: 285px;padding:5px 0 0 10px;background-color: rgba(153,82,153,0.5);border-radius: 5px;}
+
+    .prizeBox .p1{font-size: 50px;color: #3AD185;}
+    .prizeBox .p2{font-size: 15px;color: #080808;margin-top: 10px;}
+    .prizeBox .p3{font-size: 12px;color: #6A6B6C;margin: 15px 0 15px 0;}
+    .info{background: #D3DFE7;height: 270px;overflow: hidden;margin-top: 20px;position: relative;}
+    .fromArrow{position: absolute;top:0px;left: 120px;}
+    .formList{width: 90%;height: 44px;background: #A1B2BD;border-radius: 5px;margin: 10px auto;line-height: 44px;}
+    .formList input{display: block;height:40px;width: 170px;border: none;background: none;-webkit-appearance:none;text-indent: 10px;color: #FEFEFE;}
+    .type{width: 40px;border-right: 1px solid #B2C0C9;float:left;color: #FEFEFE; }
+
+    .comPop{position: absolute;overflow: hidden; }
+    .comBox{width: 250px;min-height: 160px;border-radius: 5px;background: #fff;position: relative;overflow: hidden;padding: 20px;text-align: center}
+    .comBoxBtn{width: 80%;height: 50px;background: #3AD185;color: #fff;border-radius: 5px;font-size: 24px;text-align: center;line-height: 50px;margin: 20px auto;}
+    .closeBtn{color:#8C8C8C;position: absolute;right: 5px;top:10px;width: 35px;height: 35px; outline: none;border: 0;z-index: 2}
+    .sorryBox{overflow: hidden;}
+    .sorryBox .p1{font-size: 50px;color: #3AD185;}
+    .ruleBox{text-align: left;line-height: 24px;padding-top: 40px;overflow: hidden;}
+    .ruleUnderline{border-bottom: 1px solid #ccc;width: 100%;height: 0;overflow: hidden;margin: 10px}
+</style>
+<body>
+<div class="wraper box_orient"   id="vote_form_649">
+    <div class="header comWidth">
+        <div class="topNav">
+            <a class="backBtn fl" href="http://sy.qq.com/tga/2014/">TGA移动游戏</a>
+            <div class="rule fr" onclick="showDialog.show({id:'ruleBox'});">活动规则 <span class="arrow-right"></span></div>
+            <!--<div class="closeSoud fr icon-volume-off" onclick="closeSound()"></div>-->
+        </div>
+        <h1>为城市快乐点赞， 城市拉力赛</h1>
+        <div class="voteWrap">
+            <div class="location_01">
+                <p>  <strong>举办地点：</strong><span id="location_01">西城区西单北大街131号西单大悦城</span> </p>
+                <p>  <strong>举办时间：</strong><span id="location_02">5月14日-5月18日</span></p>
+
+            </div>
+            <div class="zhanWrap" id="city_zan" >  <!-------投票--------->
+                <div class="select">
+                    <p class="selected"><span class="selectedCity" id="selectedCity">北京市</span> <span class="arrow-down"></span></p>
+
+                </div>
+                <div class="zhan fl">
+
+                    <div class="z1" style="display: block"  id="item_649_1_1"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1"  id="item_649_1_2"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1"  id="item_649_1_3"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1"  id="item_649_1_4"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_5"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_6"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_7"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_8"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_9"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_10"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_11"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_12"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_13"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_14"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_15"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_16"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_17"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_18"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_19"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_20"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_21"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_22"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                    <div class="z1" id="item_649_1_25"><span class="icon-thumbs-up icon-thumbs-up-1"></span>赞</div>
+                </div>
+            </div>
+            <div class="voteBtnWrap" style="display:none;" id="city_lottery"> <!-------投票后显示--------->
+                抽奖 <span class="icon-gift" id="LottryID" ></span>
+            </div>
+        </div>
+
+        <div id="unlogin" class="login">
+            <a href="javascript:void(0);" id="ptLoginBtn">[登录]</a>
+        </div>
+        <div id="logined" style="display:none;" class="login">
+            <span id='userinfo'></span>，您好！  
+            <a href="javascript:void(0);" id="ptLogoutBtn">[注销]</a>
+        </div>
+    </div>
+    <div class="tabWrap">
+        <div class="tab1">
+            <ul>
+                <li id="tabLi-01"><a class="on" href="javascript:void (0)">城市<span class="icon-signal"></span> </a></li>
+                <!--<li  id="tabLi-02"><a href="javascript:void (0)">视频<span class="icon-videocam"></span></a></li>-->
+            </ul>
+            <!--<div class="slideLine"></div>-->
+        </div>
+        <div class="mainWrap">
+            <div class="paiming fl">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td class="c1 w1">1</td>
+                        <td class="c1 w2">北京</td>
+                        <td class="c3 w3"><span id="result_text_649_1_1"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">2</td>
+                        <td class="c1 w2">上海</td>
+                        <td class="c3 w3"><span id="result_text_649_1_2"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">3</td>
+                        <td class="c1 w2">广州</td>
+                        <td class="c3 w3"><span id="result_text_649_1_3"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">4</td>
+                        <td class="c1 w2">成都</td>
+                        <td class="c3 w3"><span id="result_text_649_1_4"></span> 赞</td>
+                        <td class="w4"><span  class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">5</td>
+                        <td class="c1 w2">深圳</td>
+                        <td class="c3 w3"><span id="result_text_649_1_5"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">6</td>
+                        <td class="c1 w2">常州</td>
+                        <td class="c3 w3"><span id="result_text_649_1_6"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">7</td>
+                        <td class="c1 w2">济南</td>
+                        <td class="c3 w3"><span id="result_text_649_1_7"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">8</td>
+                        <td class="c1 w2">石家庄</td>
+                        <td class="c3 w3"><span id="result_text_649_1_8"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">9</td>
+                        <td class="c1 w2">杭州</td>
+                        <td class="c3 w3"><span id="result_text_649_1_9"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">10</td>
+                        <td class="c1 w2">福州</td>
+                        <td class="c3 w3"><span id="result_text_649_1_10"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    </tbody>
+                    <tbody id="moreCity" style="display: none">
+                    <tr>
+                        <td class="c1 w1">11</td>
+                        <td class="c1 w2">长沙</td>
+                        <td class="c3 w3"><span id="result_text_649_1_11"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">12</td>
+                        <td class="c1 w2">武汉</td>
+                        <td class="c3 w3"><span id="result_text_649_1_12"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">13</td>
+                        <td class="c1 w2">西安</td>
+                        <td class="c3 w3"><span id="result_text_649_1_13"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">14</td>
+                        <td class="c1 w2">昆明</td>
+                        <td class="c3 w3"><span id="result_text_649_1_14"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">15</td>
+                        <td class="c1 w2">南宁</td>
+                        <td class="c3 w3"><span id="result_text_649_1_15"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">16</td>
+                        <td class="c1 w2">合肥</td>
+                        <td class="c3 w3"><span id="result_text_649_1_16"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">17</td>
+                        <td class="c1 w2">沈阳</td>
+                        <td class="c3 w3"><span id="result_text_649_1_17"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">18</td>
+                        <td class="c1 w2">重庆</td>
+                        <td class="c3 w3"><span id="result_text_649_1_18"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">19</td>
+                        <td class="c1 w2">郑州</td>
+                        <td class="c3 w3"><span id="result_text_649_1_19"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">20</td>
+                        <td class="c1 w2">哈尔滨</td>
+                        <td class="c3 w3"><span id="result_text_649_1_20"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+
+                    <tr>
+                        <td class="c1 w1">21</td>
+                        <td class="c1 w2">鹰潭</td>
+                        <td class="c3 w3"><span id="result_text_649_1_21"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr>
+                        <td class="c1 w1">22</td>
+                        <td class="c1 w2">南昌</td>
+                        <td class="c3 w3"><span id="result_text_649_1_22"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    <tr style="border-bottom: none;">
+                        <td class="c1 w1">23</td>
+                        <td class="c1 w2">海口</td>
+                        <td class="c3 w3"><span id="result_text_649_1_25"></span> 赞</td>
+                        <td class="w4"><span class="icon-location"></span>
+                    </tr>
+                    </tbody>
+
+                </table>
+                <div class="more">查看全部 ></div>
+            </div>
+            <!--<div class="vedios fl">-->
+                <!--<p class="wait">敬请期待</p>-->
+                <!--<ul>-->
+                    <!--<li>-->
+                        <!--<a href="#">-->
+                            <!--<img class="fl" src="http://ossweb-img.qq.com/images/sy/tga/2014/city/vedio.jpg" width="120" height="70" />-->
+                            <!--<div>-->
+                                <!--<p class="vedioTitle">克罗地亚狂想曲在街头-->
+                                    <!--卖艺</p>-->
+                                <!--<p>【节奏大师】</p>-->
+                            <!--</div>-->
+
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">-->
+                            <!--<img class="fl" src="http://ossweb-img.qq.com/images/sy/tga/2014/city/vedio.jpg" width="120" height="70" />-->
+                            <!--<div>-->
+                                <!--<p class="vedioTitle">克罗地亚狂想曲在街头-->
+                                    <!--卖艺</p>-->
+                                <!--<p>【节奏大师】</p>-->
+                            <!--</div>-->
+
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">-->
+                            <!--<img class="fl" src="http://ossweb-img.qq.com/images/sy/tga/2014/city/vedio.jpg" width="120" height="70" />-->
+                            <!--<div>-->
+                                <!--<p class="vedioTitle">克罗地亚狂想曲在街头-->
+                                    <!--卖艺</p>-->
+                                <!--<p>【节奏大师】</p>-->
+                            <!--</div>-->
+
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<a href="#">-->
+                            <!--<img class="fl" src="http://ossweb-img.qq.com/images/sy/tga/2014/city/vedio.jpg" width="120" height="70" />-->
+                            <!--<div>-->
+                                <!--<p class="vedioTitle">克罗地亚狂想曲在街头-->
+                                    <!--卖艺</p>-->
+                                <!--<p>【节奏大师】</p>-->
+                            <!--</div>-->
+
+                        <!--</a>-->
+                    <!--</li>-->
+
+                    <!--<li>-->
+                        <!--<a href="#">-->
+                            <!--<img class="fl" src="http://ossweb-img.qq.com/images/sy/tga/2014/city/vedio.jpg" width="120" height="70" />-->
+                            <!--<div>-->
+                                <!--<p class="vedioTitle">克罗地亚狂想曲在街头-->
+                                    <!--卖艺</p>-->
+                                <!--<p>【节奏大师】</p>-->
+                            <!--</div>-->
+
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+                <!--<a class="enterVedioCenter" href="#">进入视频专区  ></a>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    </div>
+
+</div>
+    <div class="gifts">
+        <div class="giftTitle"><strong>奖品奖励</strong><span class="icon-gift"></span> </div>
+        <div class="giftList">
+            <img src="http://ossweb-img.qq.com/images/sy/tga/2014/city/gifts.jpg" width="292" height="316" alt=""/>
+        </div>
+    </div>
+
+    <div class="foot comWidth">
+        <script type="text/javascript" src="http://ossweb-img.qq.com/images/js/mfoot.js"></script>
+    </div>
+<div class="comPop" id="sorryPop" style="display:none;">
+    <div class="sorryBox comBox">
+        <div class="closeBtn icon-cancel" onclick="showDialog.hide()"></div>
+        <p class="p1">太遗憾了</p>
+        <div class="comBoxBtn" onclick="showDialog.hide()">确定</div>
+    </div>
+</div>
+<div class="comPop" id="personalID" style="display:none;">
+    <div class="prizeBox comBox">
+        <div class="closeBtn icon-cancel"  onclick="showDialog.hide()" id="colseLayer_68683"></div>
+        <p class="p1">恭喜</p>
+        <p class="p2" id="content"></p>
+        <div class="info">
+            <div class="arrow-down fromArrow"></div>
+            <p class="p3">填写您的信息，会有工作人员专门与您联系</p>
+
+            <form action="">
+                <div class="formList">
+                    <p class="type">姓名</p>
+                    <input type="text" name="sName" id="sName"/>
+                </div>
+                <div class="formList">
+                    <p class="type">电话</p>
+                    <input type="text"  name="sMobile" id="sMobile"/>
+                </div>
+                <div class="formList" style="display:none;">
+                    <p class="type">身份证</p>
+                    <input type="text" name="sIdentity" id="sIdentity" value='110101201401014971'/>
+                </div>
+                <div class="formList">
+                    <p class="type" >地址</p>
+                    <input type="text" id="sAddress" name="sAddress"/>
+                </div>
+            </form>
+        </div>
+        <div class="comBoxBtn" id="personInfoContentBtn_68683">确定</div>
+    </div>
+</div>
+<div class="comPop" id="mapPop" style="display: none">
+    <div class="sorryBox comBox">
+        <div class="closeBtn icon-cancel"  onclick="showDialog.hide()"></div>
+        <div style="text-align: left">
+            <h3 id="mapPopCityName" style="text-align: center;margin: 20px 0 10px 0;color: #9B5DFE;"></h3>
+            <p>赛事地址：<span id="mapPopStreetName"></span></p>
+            <p>赛事时间：<span id="mapPopDate"></span></p>
+        </div>
+        <div style="width:250px;height:200px;border-radius: 5px;margin-top: 10px;" id="container"></div>
+    </div>
+</div>
+<div class="comPop" id="selectPop"  style="display: none">
+    <div class="sorryBox comBox">
+        <div class="closeBtn icon-cancel"  onclick="showDialog.hide()"></div>
+        <ul class="selectUL">
+            <li>[北京市]</li>
+            <li>[上海市]</li>
+            <li>[广州市]</li>
+            <li>[成都市]</li>
+            <li>[深圳市]</li>
+            <li>[常州市]</li>
+            <li>[济南市]</li>
+            <li>[石家庄]</li>
+            <li>[杭州市]</li>
+            <li>[福州市]</li>
+            <li>[长沙市]</li>
+            <li>[武汉市]</li>
+            <li>[西安市]</li>
+            <li>[昆明市]</li>
+            <li>[南宁市]</li>
+            <li>[合肥市]</li>
+            <li>[沈阳市]</li>
+            <li>[重庆市]</li>
+            <li>[郑州市]</li>
+            <li>[哈尔滨]</li>
+            <li>[鹰潭市]</li>
+            <li>[南昌市]</li>
+            <li>[海口市]</li>
+        </ul>
+    </div>
+</div>
+<div class="comPop" id="ruleBox" style="display: none;">
+    <div class="closeBtn icon-cancel"  onclick="showDialog.hide()" ></div>
+    <div class="sorryBox comBox ruleBox">
+        <h3>TGA移动游戏大奖赛-城市拉力赛-<span style="color:red;">北京站</span>-活动详情</h3>
+        <p> 5月14日-5月18日，TGA移动游戏大奖赛城市拉力赛终极挑战，“快乐微运动”北京站收官场将在<span style="color:red;">西单大悦城</span>轰动举办。</p>
+        <p>比赛项目分为：
+            <br/>《天天酷跑》
+            <br/>《天天飞车》
+            <br/>《天天爱消除》
+            <br/>《全民飞机大战》
+            <br/>《节奏大师》
+            <br/>五款游戏。</p>
+        <p>城市拉力赛将通过现场报名的方式，不限制玩家报名项目数量，只要是热爱游戏，并有以上游戏经验的玩家均可报名参加。</p>
+        <p>比赛奖励：每款游戏比赛选手将获得</p>
+        <p>第1名：ELIFE智能手机1台+限量版马年QQ公仔</p>
+        <p>第2名至第11名：每人获得200元人民币</p>
+        <p>参与奖：海量游戏道具礼包，异业奖品，QQ公仔</p>
+        <p class="ruleUnderline"></p>
+        <h3>为城市快乐点赞-活动详情-<span style="color:red;">北京看你了！</span></h3>
+        <p> 5月14日-5月18日期间，玩家可以通过“为城市快乐点赞”的线上活动为<span style="color:red;">北京点赞</span>，每次为<span style="color:red;">北京点赞</span>可获得1次抽奖机会，每个QQ号码每天将最多有三次抽奖机会。</p>
+        <p>活动奖励：</p>
+        <ul>
+            <li>iPhone5S 6台</li>
+            <li> iPad Air 6台</li>
+            <li>ELIFE5.5致薄手机 6台 </li>
+            <li>天天飞车卫衣  1000件 </li>
+            <li>节奏大师卫衣  1000件  </li>
+            <li>天天酷跑卫衣  1000件 </li>
+            <li>天天爱消除帽子  1000件</li>
+            <li>全民飞机大战T恤  1000件 </li>
+            <li>限量版马年QQ公仔 1000个 </li>
+        </ul>
+
+    </div>
+</div>
+</body>
+
+<script src="http://pingjs.qq.com/ping_tcss_ied.js"></script>
+<script type="text/javascript" src="http://gameact.qq.com/vote/js/vote.js"></script>
+<script type="text/javascript" src="js/QVAudio.js"></script>
+<script type="text/javascript" src="http://ossweb-img.qq.com/images/js/comm/showDialog.min.js"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+
+<script type="text/javascript" src="http://ossweb-img.qq.com/images/js/mobile/milo.js"></script>
+<script type="text/javascript" src="http://ossweb-img.qq.com/images/ams/atm/reporting.js"></script>
+<script type="text/javascript" src="comm.js"></script>
+<script type="text/javascript">
+
+function gL(o){return document.querySelector(o)}
+var cityArray=[
+            ["北京市","西城区西单北大街131号西单大悦城","5月14日-5月18日"],
+            ["上海市","上海市都市路5001号仲盛世界商城","5月1日 10:00-18:00"],
+            ["广州市","白云区云城东路503号白云万达广场","5月3日 15:00-21:00"],
+            ["成都市","成都市春熙路银石广场","5月1~3日 10：00-18：00"],
+            ["深圳市","深圳市福田区福华三路269号COCOPark","已结束"],
+            ["常州市","新北区通江中路88号万达南广场","5月3日 9:30-18:00"],
+            ["济南市","济南市经四路万达商圈中心","5月1日 16:00-21:00"],
+            ["石家庄","新华区华强电子广场","5月3日 13:00-18:00"],
+            ["杭州市","杭州市商圈中心工联大厦","5月2日 10:00-18:00"],
+            ["福州市","福州市台江区工业路193号宝龙城市广场","5月3日 10:00-21:00"],
+            ["长沙市","长沙市黄兴路商业步行街悦方IDMALL","5月1日 16:00-21:00"],
+            ["武汉市","洪山区珞瑜路光谷世界城广场","5月1日 10:00-18:00"],
+            ["西安市","碑林区雁塔路北段8号万达广场","5月1日 09:00-19:00"],
+            ["昆明市","昆明市星河PUB街南亚风情园","5月1日 16:00-21:00"],
+            ["南宁市","南宁市人民东路158号赛格电子市场","5月2日 11:00-18:00"],
+            ["合肥市","合肥市淮河路步行街77号百盛广场","5月1日 11:00-21:00"],
+            ["沈阳市","中街步行街商圈中心沈阳大悦城","5月1日 11:00-18:00"],
+            ["重庆市","重庆市渝中区民权路89号日月光广场","5月2日 16:00-20:00"],
+            ["郑州市","中原中路秦岭路交叉口中原万达广场","5月1日 13:00-18:00"],
+            ["哈尔滨","南岗区红旗大街301号青年文化博览会","5月3~6日 10:00"],
+            ["鹰潭市","鹰潭市月湖区时代广场","5月1日 10:00-18:00"],
+            ["南昌市","广场南路205号苏宁八一广场店","5月2日 10:00-18:00"],
+            ["海口市","美兰区海秀东路10号DC电脑城","5月3日 15:00-21:00"]
+        ],
+        cityName=['beijing','shanghai','guangzhou','chengdu','shenzhen','changzhou','jinan','shijiazhuang','hanzhou','fuzhou','changsha','wuhan','xian','kunming','nanning','hefei','shenyang','chongqing','zhengzhou','haerbing','yingtan','nanchang','haikou'],
+        options=gL(".selectUL").querySelectorAll("li"),
+        z1=document.querySelectorAll(".z1"),
+        citySounds={};
+var cityDialect={
+    getLocation:function(){
+        if (navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(this.showPosition);
+        } return;
+    },
+    showPosition:function (position) {
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        var latLng = new qq.maps.LatLng(lat, lng);
+        var geocoder=new qq.maps.Geocoder({
+            complete : function(result){
+                cityDialect.chooseCity(result.detail.address);
+            }
+         });
+        geocoder.getAddress(latLng);
+    },
+    chooseCity:function(o){
+        var cityStr= o;
+        for(i in cityArray){
+            if(cityStr.indexOf(cityArray[i][0])!=-1){
+                gL(".selectedCity").innerHTML=cityArray[i][0];
+                gL("#location_01").innerHTML=cityArray[i][1];
+                gL("#location_02").innerHTML=cityArray[i][2];
+                for(var j=0;j<z1.length;j++){z1[j].style.display="none";}
+                z1[i].style.display="block";
+            }
+        }
+    }
+}
+cityDialect.getLocation();
+var popMaps={
+    codeAddress:function(o) {
+        var geocoder2,map,marker = null;
+        map = new qq.maps.Map(document.getElementById('container'),{
+            zoom: 15
+        });
+        geocoder2 = new qq.maps.Geocoder({
+            complete : function(result){
+                map.setCenter(result.detail.location);
+                var marker = new qq.maps.Marker({
+                    map:map,
+                    position: result.detail.location
+                });
+            }
+        });
+        geocoder2.getLocation(cityArray[o][1]);
+    },
+    addressIcon:function(){
+            var icons=document.querySelectorAll(".icon-location");
+            for(var i=0;i<icons.length;i++){
+                icons[i].i=i;
+                icons[i].addEventListener("click",function(){
+                    popMaps.codeAddress(this.i);
+                    g("mapPopCityName").innerHTML ="["+cityArray[this.i][0]+"]";
+                    g("mapPopStreetName").innerHTML =cityArray[this.i][1];
+                    g("mapPopDate").innerHTML =cityArray[this.i][2];
+                    pgvSendClick({hottag:'tga2014.city.mapPop.'+cityName[this.i]+''});
+                    showDialog.show({id:'mapPop'});
+                },false)
+            }
+
+    }
+}
+popMaps.addressIcon();
+
+
+//城市选择模块
+var selectCity=function (){
+    for(var i=0;i< options.length;i++){
+        options[i].i=i;
+        options[i].addEventListener("touchstart",function(){
+            for(var j=0;j<z1.length;j++){z1[j].style.display="none";}
+            gL(".selectedCity").innerHTML=cityArray[this.i][0];
+            gL("#location_01").innerHTML=cityArray[this.i][1];
+            gL("#location_02").innerHTML=cityArray[this.i][2];
+            pgvSendClick({hottag:'tga2014.city.fangyan.'+cityName[this.i]+''});
+            z1[this.i].style.display="block";
+            closeSound();
+            audio[this.i].play();
+            showDialog.hide();
+        },false);
+    }
+
+    gL(".selected").addEventListener("touchstart",function(){
+        pgvSendClick({hottag:'tga2014.city.selectedCity'});        
+        showDialog.show({id:"selectPop"});
+    } ,false);
+}
+selectCity();
+//声音模块
+var citySounds=function(){
+    var popAudios = [];
+    for(var i=0;i<cityName.length;i++){
+        popAudios.push(new QVAudio({src: './js/'+cityName[i]+'.mp3', base64: './js/'+cityName[i]+'.js', callback: cityName[i]}));
+    }
+    return popAudios;
+}
+function closeSound(){
+    for(var i=0;i<options.length;i++){
+        audio[i].stop()
+    }
+}
+
+alert(citySounds())
+
+window.audio = citySounds();
+
+//切换页卡；
+var changeTab={
+    slideLeft:function(){
+       gL(".mainWrap").style.webkitTransform="translate3d(0,0 ,0)";
+       gL(".slideLine").style.webkitTransform="translate3d(0,0 ,0)";
+
+    },
+    slideRight:function(){
+        gL(".mainWrap").style.webkitTransform="translate3d(-300px,0 ,0)";
+        gL(".slideLine").style.webkitTransform="translate3d(150px,0 ,0)";
+    },
+    bindObject:function(){
+        gL("#tabLi-01").addEventListener("touchstart",function(){
+            changeTab.slideLeft();
+        },false)
+         gL("#tabLi-02").addEventListener("touchstart",function(){
+            changeTab.slideRight();
+             gL("#moreCity").style.display="none";
+             gL(".more").style.display="block";
+        },false)
+
+    }
+}
+gL(".more").addEventListener("touchstart",function(){
+    gL("#moreCity").style.display="block";
+    this.style.display="none";
+},false)
+//changeTab.bindObject();
+
+function vote() {
+    // 模板自动生成的投票配置，可以按需改动部分配置
+    var g_vote_config = {
+        VOTE_CONFIG_649: {
+            id: 649, // 必需，投票活动id
+            type: Vote.VOTE_TYPES.VOTE, // 必需，投票类型，普通或者打分 Vote.VOTE_TYPES.SCORE
+            width: 180, // 可按需修改，投票模块宽度，默认150px
+            needLogin: false,  // 是否需要检查登录，有则会自动弹出登录框
+            needArea: false,  // 是否需要选择大区，有则会自动弹出大区选择框
+            serviceCode: "sy", // 如果需要选择大区，则需要指定业务的小写代码
+            areaType: Vote.AREA_TYPES.LEVEL_TWO, // 如需选择大区，则需指定是一级还是二级大区
+            needRole: false, // 是否需要选择角色，需要则会有角色选择列表
+            showResult: true, // 是否需要展示结果，是则会出现显示结果按钮
+            resultTextFormat: "{count}", // 投票结果显示格式，count为投票数，percent为占总票数的比例，total为总票数，可以自行定义
+            submitOnSelect: true, // 是否在点击选项时立刻投票
+            resultWidth: 320, // 结果总宽度，默认320px
+            resultViewWidth: 0, // 结果百分比线条宽度，默认130px
+            resultMode: Vote.RESULT_MODE.POP_UP, // 显示结果的方式，POP_UP为弹出层，IN_PLACE为就地显示
+            onSetupComplete: function(config) {
+                Vote.ShowResult(config.id,true,function(){
+                       
+                });
+            },
+            onVoteComplete: function(response, config) {
+                if(g('selectedCity').innerHTML == '北京市'){
+                    city();
+                }
+                Vote.ShowResult(config.id);
+            },
+            questions: [
+                {
+                    id: 1,
+                    needReason: false, // 是否有投票原因，有则会进行检查
+                    items: [
+
+                        { id: 1 },
+
+                        { id: 2 },
+
+                        { id: 3 },
+
+                        { id: 4 },
+
+                        { id: 5 },
+
+                        { id: 6 },
+
+                        { id: 7 },
+
+                        { id: 8 },
+
+                        { id: 9 },
+
+                        { id: 10 },
+
+                        { id: 11 },
+
+                        { id: 12 },
+
+                        { id: 13 },
+
+                        { id: 14 },
+
+                        { id: 15 },
+
+                        { id: 16 },
+
+                        { id: 17 },
+
+                        { id: 18 },
+
+                        { id: 19 } ,
+                        { id: 20 },
+                        { id: 21 } ,
+                        { id: 22 } ,
+                        { id: 25 }
+                    ]
+                }
+
+            ]
+        }
+    };
+    Vote.Setup(g_vote_config);
+}
+vote();
+
+   function onBridgeReady() {
+        var mainTitle="TGA移动游戏城市拉力赛-为城市快乐点赞",
+                mainDesc="5月1-3日，TGA移动游戏城市拉力赛全国20城同步开战",
+                mainURL="http://sy.qq.com/tga/2014/city/m/index.htm",
+                mainImgUrl= "http://ossweb-img.qq.com/images/sy/tga/2014/logo-wx.png";
+
+        //转发朋友圈
+        WeixinJSBridge.on("menu:share:timeline", function(e) {
+            var data = {
+                img_url:mainImgUrl,
+                img_width: "120",
+                img_height: "120",
+                link: mainURL,
+                //desc这个属性要加上，虽然不会显示，但是不加暂时会导致无法转发至朋友圈，
+                desc: mainDesc,
+                title: mainTitle
+            };
+            WeixinJSBridge.invoke("shareTimeline", data, function(res) {
+                WeixinJSBridge.log(res.err_msg)
+            });
+        });
+        //同步到微博
+        WeixinJSBridge.on("menu:share:weibo", function() {
+            WeixinJSBridge.invoke("shareWeibo", {
+                "content": mainDesc,
+                "url": mainURL
+            }, function(res) {
+                WeixinJSBridge.log(res.err_msg);
+            });
+        });
+        //分享给朋友
+        WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+            WeixinJSBridge.invoke("sendAppMessage", {
+                img_url: mainImgUrl,
+                img_width: "120",
+                img_height: "120",
+                link: mainURL,
+                desc: mainDesc,
+                title: mainTitle
+            }, function(res) {
+                WeixinJSBridge.log(res.err_msg)
+            });
+        });
+    };
+    //执行
+    document.addEventListener('WeixinJSBridgeReady', function() {
+        onBridgeReady();
+    });
+
+
+function report(){var d1=new Date();var url="http://isdspeed.qq.com/cgi-bin/r.cgi?flag1=7718&flag2=164&flag3=3&1="+(d1-d0);if(Math.random()<1){imgSendTimePoint=new Image();imgSendTimePoint.src=url}}
+window.onload=report;
+
+if(typeof(pgvMain) == 'function')
+    pgvMain();
+
+</script>
+
+</html>
+<!--[if !IE]>|xGv00|124110948d910b66117fca43b54fc72d<![endif]-->

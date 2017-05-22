@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <meta content="telephone=no" name="format-detection">
+  <title>使用localstorage选择性缓存图片 - DEMO</title>
+  <style>
+  body{ background-repeat:no-repeat;}
+  a:hover, a.hover {color: #008000;}
+  </style>
+  <script type="text/javascript" src="http://mat1.gtimg.com/dyaio/js/r_dy/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+
+
+
+<!--以下是访问量统计代码，与本页面内容无关-->
+<div style="visibility:hidden;">
+	
+</div>
+
+<!--//访问量统计代码结束-->
+</body>
+  <script>
+  (function(){
+	var iosURL = 'itms-apps://itunes.apple.com/cn/app/quan-min-fei-ji-da-zhan/id731871690?l=en&mt=8';
+	var androidURL = 'http://dlied5.qq.com/wefly/release/android/1.0.5/wefly_1.0.5.6_android_8CF5F95E.apk';
+	var iosScheme = 'taobao://';
+	var androidScheme = 'webwx47a71dd8a1875943:';
+	var homePage = '/web201404/';
+
+	if(/iphone|ipod|ipad/i.test(navigator.userAgent)) {
+		window.location = iosScheme;
+		var startDate = new Date();
+		setTimeout(function(){ 
+			if(new Date() - startDate > 1000) return;
+			window.location= iosURL;
+			window.setTimeout(function(){
+				window.location= homePage;
+			}, 100)
+		} , 800);
+	} else if(/android/i.test(navigator.userAgent)) {
+		window.location = androidScheme;
+		var startDate = new Date();
+		setTimeout(function(){ 
+			if(new Date() - startDate > 1000) return;
+			window.location= androidURL;
+			window.setTimeout(function(){
+				window.location= homePage;
+			}, 1000)
+		} , 800);
+	} else {
+		alert('非常抱歉，本游戏暂时只提供android和ios版。');
+		window.location= homePage;
+	}
+
+})();
+  </script>
+</html>
